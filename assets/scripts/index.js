@@ -1,17 +1,38 @@
 const mainElement = document.querySelector('main#flexbox-16x16');
 
-// Step 0: Create a flexbox inside a flexbox
+const itemFlexbox = function createAndAppendFlexboxItem(appendToElement) {
+  const itemFlexbox = document.createElement('div');
+  itemFlexbox.classList.add('item-flexbox');
+  appendToElement.appendChild(itemFlexbox);
+  return itemFlexbox;
+}
 
-const horizontalFlexbox = document.createElement('div');
-horizontalFlexbox.classList.add('horizontal-flexbox');
-mainElement.appendChild(horizontalFlexbox);
+const flexboxRow = function createAndAppendHorizontalFlexbox(appendToElement) {
+  const horizontalFlexbox = document.createElement('div');
+  horizontalFlexbox.classList.add('horizontal-flexbox');
+  appendToElement.appendChild(horizontalFlexbox);
+  return horizontalFlexbox;
+}
 
-const itemFlexbox = document.createElement('div');
-itemFlexbox.classList.add('item-flexbox');
-horizontalFlexbox.appendChild(itemFlexbox);
-horizontalFlexbox.appendChild(itemFlexbox);
+const createGrid = function create16x16GridOfPredefinedVariables() {
+  for (let i = 0; i < 4; i++) { 
+    const flexboxRowElement = flexboxRow(mainElement);
+    for (let i = 0; i < 4; i++) {
+      itemFlexbox(flexboxRowElement);
+    }
+  }
+}
 
-// Step 1: Create 4 horizontal flexboxes
+createGrid();
 
+const itemFlexboxes = Array.from(document.querySelectorAll('main#flexbox-16x16 .horizontal-flexbox .item-flexbox'));
 
-// Step 2: Create 4 items within the flexboxes
+itemFlexboxes.forEach(itemFlexbox => {
+  itemFlexbox.addEventListener('mouseover', () => {
+    itemFlexbox.classList.add('background-darkblue');
+    setTimeout(() => {
+      itemFlexbox.classList.remove('background-darkblue');
+    }, 1000);
+  });
+});
+

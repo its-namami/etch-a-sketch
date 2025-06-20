@@ -34,18 +34,16 @@ nav {
 }
 
 main#flexbox-16x16 {
-  background-color: var(--rich-black);
+  background-color: var(--oxford-blue);
 }
 
 main#flexbox-16x16 .horizontal-flexbox {
-  background-color: var(--yale-blue);
-  border-radius: .5rem;
-  border: 1px solid var(--mikado-yellow);
   display: flex;
   gap: .5rem;
   height: 5rem;
   overflow: hidden;
   padding: 1rem;
+  justify-content: space-evenly;
 }
 
 main#flexbox-16x16 .horizontal-flexbox .item-flexbox {
@@ -53,5 +51,11 @@ main#flexbox-16x16 .horizontal-flexbox .item-flexbox {
   background-color: white;
   border-radius: .3rem;
   border: 1px solid var(--gold);
+  height: 3rem;
+  max-width: 3rem;
+  transition: background-color 0.278s;
 }
 
+main#flexbox-16x16 .horizontal-flexbox .item-flexbox.background-darkblue {
+  background-color: var(--rich-black);
+}
