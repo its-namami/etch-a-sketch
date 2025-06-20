@@ -11,6 +11,8 @@
   --gold: #FFD60AFF;
   --colombia-blue: #C9DAEA;
   --yellow-green: #B6C454;
+  --selective-yellow: #FFBA00;
+  --brown: #964B00;
 }
 
 :root,
@@ -61,6 +63,8 @@ section#sketch-grid {
   --grid-item-size: 0.9rem;
   user-select: none;
   -webkit-user-select: none;
+  --grid-item-border-color: var(--gold);
+  border: 1px solid black;
 }
 
 section#sketch-grid .horizontal-flexbox {
@@ -69,10 +73,13 @@ section#sketch-grid .horizontal-flexbox {
   overflow: hidden;
 }
 
+.item-flexbox-border {
+  border: 1px solid var(--grid-item-border-color);
+}
+
 section#sketch-grid .horizontal-flexbox .item-flexbox {
   flex: auto;
   background-color: white;
-  border: 1px solid var(--gold);
   height: var(--grid-item-size);
   width: var(--grid-item-size);
   transition: background-color 0.178s;
@@ -82,9 +89,8 @@ section#sketch-grid .horizontal-flexbox .item-flexbox.background-darkblue {
   background-color: var(--rich-black);
 }
 
-button#invoke-choosing-new-grid {
+button.navigation-button {
   color: white;
-  margin-left: auto;
   font-size: .8rem;
   background-color: var(--oxford-blue);
   border-radius: .3rem;
@@ -93,12 +99,14 @@ button#invoke-choosing-new-grid {
   transition: background-color 0.2s;
 }
 
-button#invoke-choosing-new-grid:hover {
+button.navigation-button:hover {
   background-color: var(--yellow-green);
+  color: var(--rich-black);
 }
 
-button#invoke-choosing-new-grid:focus {
+button.navigation-button:focus {
   background-color: var(--colombia-blue);
+  color: var(--rich-black);
 }
 
 div#github-profile-image {
@@ -116,7 +124,7 @@ div#github-profile-image {
   background-color: black;
   position: relative;
   cursor: pointer;
-  margin: 0;
+  margin: 0 0 0 auto;
 }
 
 div#github-profile-image::before {
@@ -158,18 +166,28 @@ dialog#new-grid-dialog {
   border-radius: .5rem;
 }
 
-.close-dialog {
+.control-button {
   display: flex;
 }
 
-.close-dialog span {
-  color: red;
+.control-button span {
   font-size: .5em;
-  background: darkred;
   border-radius: 50%;
 }
 
+#close-new-grid-dialog-button span {
+  color: red;
+  background: darkred;
+}
+
+#minimize-new-grid-dialog-button span {
+  color: var(--selective-yellow);
+  background: var(--brown);
+}
+
 .controls-dialog {
+  display: flex;
+  gap: .3rem;
   padding: .5rem;
   position: absolute;
   top: 0;
@@ -202,4 +220,13 @@ div#margin-bottom-after-controls {
 
 #new-grid-dialog-main-icon span {
   font-size: 1.5em;
+}
+
+#home-logo a {
+  text-decoration: none;
+  color: white;
+}
+
+#home-logo a:hover {
+  text-decoration: underline;
 }

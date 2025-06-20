@@ -4,7 +4,8 @@
 const wholeGrid = document.querySelector('section#sketch-grid');
 const newGridBtn = document.querySelector('button#invoke-choosing-new-grid');
 const newGridDialog = document.querySelector('dialog#new-grid-dialog');
-const closeNewGridDialog = document.querySelector('dialog#new-grid-dialog .close-dialog');
+const closeNewGridDialog = document.querySelector('dialog#new-grid-dialog #close-new-grid-dialog-button');
+const minimizeNewGridDialog = document.querySelector('dialog#new-grid-dialog #minimize-new-grid-dialog-button');
 
 const itemFlexbox = function createAndAppendFlexboxItem(appendToElement) {
   const itemFlexbox = document.createElement('div');
@@ -74,6 +75,19 @@ closeNewGridDialog.addEventListener('mouseleave', () => {
 });
 
 closeNewGridDialog.addEventListener('click', () => {
+  newGridDialog.querySelector('form').reset();
+  newGridDialog.close();
+});
+
+minimizeNewGridDialog.addEventListener('mouseenter', () => {
+  minimizeNewGridDialog.querySelector('span').textContent = '';
+});
+
+minimizeNewGridDialog.addEventListener('mouseleave', () => {
+  minimizeNewGridDialog.querySelector('span').textContent = '';
+});
+
+minimizeNewGridDialog.addEventListener('click', () => {
   newGridDialog.close();
 });
 
@@ -84,17 +98,24 @@ newGridDialog.addEventListener('submit', event => {
   const gridItemSizeValue = newGridDialog.querySelector('form').elements['grid-item-size-value'].value;
   const gridItemSizeUnit = newGridDialog.querySelector('form').elements['grid-item-size-unit'].value;
 
-  if (gridItemSizeValue != null) {
+  if (gridItemSizeValue != '') {
     wholeGrid.style.setProperty('--grid-item-size', `${gridItemSizeValue}${gridItemSizeUnit}`);
   } else {
-    wholeGrid.style.setProperty('--grid-item-size', '0.5rem');
+    wholeGrid.style.setProperty('--grid-item-size', '0.9rem');
   }
 
   thisGrid.forEach(row => {
     row.remove();
   });
 
-  thisGrid = createGrid(rows, columns);
+  if (rows != '' && columns != '') {
+    thisGrid = createGrid(rows, columns);
+  } else {
+    thisGrid = createGrid(16, 16);
+    wholeGrid.style.setProperty('--grid-item-size', '0.9rem');
+  }
+
+  newGridDialog.querySelector('form').reset();
   newGridDialog.close();
 });
 
