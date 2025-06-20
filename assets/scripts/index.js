@@ -1,7 +1,7 @@
 // TO-DO: Add Dialog
 // Add possibility to change each grid height
 // Add Preview to the Dialog
-const wholeGrid = document.querySelector('div#flexbox-16x16');
+const wholeGrid = document.querySelector('section#sketch-grid');
 const newGridBtn = document.querySelector('button#invoke-choosing-new-grid');
 const newGridDialog = document.querySelector('dialog#new-grid-dialog');
 const closeNewGridDialog = document.querySelector('dialog#new-grid-dialog .close-dialog');
@@ -30,7 +30,7 @@ const createGrid = function createGridOfPredefinedVariables(rows, colons) {
     flexboxArray.push(flexboxRowElement)
   }
 
-  const itemFlexboxes = Array.from(document.querySelectorAll('div#flexbox-16x16 .horizontal-flexbox .item-flexbox'));
+  const itemFlexboxes = Array.from(document.querySelectorAll('section#sketch-grid .horizontal-flexbox .item-flexbox'));
 
   itemFlexboxes.forEach(itemFlexbox => {
     itemFlexbox.addEventListener('mousedown', () => {
@@ -47,7 +47,7 @@ const createGrid = function createGridOfPredefinedVariables(rows, colons) {
   return flexboxArray;
 }
 
-let thisGrid = createGrid(16, 32);
+let thisGrid = createGrid(16, 16);
 
 
 let mouseDown = false;
@@ -81,11 +81,20 @@ newGridDialog.addEventListener('submit', event => {
   event.preventDefault();
   const rows = newGridDialog.querySelector('form').elements['rows'].value;
   const columns = newGridDialog.querySelector('form').elements['columns'].value;
+  const gridItemSizeValue = newGridDialog.querySelector('form').elements['grid-item-size-value'].value;
+  const gridItemSizeUnit = newGridDialog.querySelector('form').elements['grid-item-size-unit'].value;
+
+  if (gridItemSizeValue != null) {
+    wholeGrid.style.setProperty('--grid-item-size', `${gridItemSizeValue}${gridItemSizeUnit}`);
+  } else {
+    wholeGrid.style.setProperty('--grid-item-size', '0.5rem');
+  }
+
   thisGrid.forEach(row => {
     row.remove();
   });
+
   thisGrid = createGrid(rows, columns);
   newGridDialog.close();
-
 });
 

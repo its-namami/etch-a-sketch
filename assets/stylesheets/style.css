@@ -55,23 +55,30 @@ main {
   gap: 2rem;
 }
 
-div#flexbox-16x16 .horizontal-flexbox {
+section#sketch-grid {
+  display: flex;
+  flex-direction: column;
+  --grid-item-size: 0.9rem;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+section#sketch-grid .horizontal-flexbox {
   display: flex;
   height: fit-content;
   overflow: hidden;
 }
 
-div#flexbox-16x16 .horizontal-flexbox .item-flexbox {
+section#sketch-grid .horizontal-flexbox .item-flexbox {
   flex: auto;
   background-color: white;
   border: 1px solid var(--gold);
-  height: .5rem;
-  width: .5rem;
-  max-width: .5rem;
+  height: var(--grid-item-size);
+  width: var(--grid-item-size);
   transition: background-color 0.178s;
 }
 
-div#flexbox-16x16 .horizontal-flexbox .item-flexbox.background-darkblue {
+section#sketch-grid .horizontal-flexbox .item-flexbox.background-darkblue {
   background-color: var(--rich-black);
 }
 
