@@ -9,14 +9,39 @@
     <header>
       <nav>
         <div id='home-logo'>
-          <h1>Etch-a-Sketch</h1>
+          <span>Etch-a-Sketch</span>
+        </div>
+        <button id='invoke-choosing-new-grid'>New Grid</button>
+        <div id="github-profile-image">
+          <a href="https://github.com/its-namami" target="_blank" rel="noopener noreferrer"><img src="https://avatars.githubusercontent.com/u/164639260"/></a>
         </div>
       </nav>
     </header>
     <div class='container'>
-      <main id='flexbox-16x16'>
+      <main>
+        <div id='flexbox-16x16'>
+        </div>
       </main>
     </div>
+    <dialog id='new-grid-dialog'>
+      <div class='controls-dialog'>
+        <div class='icon-font close-dialog'>
+          <span>󰻂</span>
+        </div>
+      </div>
+      <div id='margin-bottom-after-controls'></div>
+      <div class='icon-font' id='new-grid-dialog-main-icon'>
+        <span></span>
+      </div>
+      <h1 class='text-center'>Create New Grid</h1>
+      <form>
+        <label for="rows">Rows: </label>
+        <input type="text" id="rows" name="rows">
+        <label for="columns">Columns: </label>
+        <input type="text" id="columns" name="columns">
+        <button type="submit">Create <span class="icon-font">󰋁</span></button>
+      </form>
+    </dialog>
   </body>
   <script src='assets/scripts/index.js'></script>
 </html>

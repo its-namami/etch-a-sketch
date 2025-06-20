@@ -1,9 +1,16 @@
+@font-face {
+    font-family: 'Nerd-Font-Icon';
+      src: url('../fonts/NerdFontsSymbolsOnly/SymbolsNerdFontMono-Regular.ttf');
+}
+
 :root {
-  --rich-black: #000814ff;
-  --oxford-blue: #001d3dff;
-  --yale-blue: #003566ff;
-  --mikado-yellow: #ffc300ff;
-  --gold: #ffd60aff;
+  --rich-black: #000814FF;
+  --oxford-blue: #001D3DFF;
+  --yale-blue: #003566FF;
+  --mikado-yellow: #FFC300FF;
+  --gold: #FFD60AFF;
+  --colombia-blue: #C9DAEA;
+  --yellow-green: #B6C454;
 }
 
 :root,
@@ -12,11 +19,18 @@
 :root::after {
   font-size: 1.5rem;
   box-sizing: border-box;
-  color: white;
+}
+
+.icon-font,
+.icon-font span {
+  user-select: none;
+  -webkit-user-select: none;
+  font-family: 'Nerd-Font-Icon', serif-sans;
 }
 
 header {
   margin-bottom: 3rem;
+  color: white;
 }
 
 nav {
@@ -25,6 +39,7 @@ nav {
   display: flex;
   align-items: center;
   padding: 0.5rem;
+  gap: 1rem;
 }
 
 .container {
@@ -33,29 +48,151 @@ nav {
   margin: 0 auto;
 }
 
-main#flexbox-16x16 {
-  background-color: var(--oxford-blue);
-}
-
-main#flexbox-16x16 .horizontal-flexbox {
+main {
   display: flex;
-  gap: .5rem;
-  height: 5rem;
-  overflow: hidden;
-  padding: 1rem;
-  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
 }
 
-main#flexbox-16x16 .horizontal-flexbox .item-flexbox {
+div#flexbox-16x16 .horizontal-flexbox {
+  display: flex;
+  height: fit-content;
+  overflow: hidden;
+}
+
+div#flexbox-16x16 .horizontal-flexbox .item-flexbox {
   flex: auto;
   background-color: white;
-  border-radius: .3rem;
   border: 1px solid var(--gold);
-  height: 3rem;
-  max-width: 3rem;
-  transition: background-color 0.278s;
+  height: .5rem;
+  width: .5rem;
+  max-width: .5rem;
+  transition: background-color 0.178s;
 }
 
-main#flexbox-16x16 .horizontal-flexbox .item-flexbox.background-darkblue {
+div#flexbox-16x16 .horizontal-flexbox .item-flexbox.background-darkblue {
   background-color: var(--rich-black);
+}
+
+button#invoke-choosing-new-grid {
+  color: white;
+  margin-left: auto;
+  font-size: .8rem;
+  background-color: var(--oxford-blue);
+  border-radius: .3rem;
+  border: 1px solid var(--yale-blue);
+  padding: .3rem;
+  transition: background-color 0.2s;
+}
+
+button#invoke-choosing-new-grid:hover {
+  background-color: var(--yellow-green);
+}
+
+button#invoke-choosing-new-grid:focus {
+  background-color: var(--colombia-blue);
+}
+
+div#github-profile-image {
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid black;
+  height: 100%;
+  margin-right: 1em;
+}
+
+div#github-profile-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  position: relative;
+  cursor: pointer;
+  margin: 0;
+}
+
+div#github-profile-image::before {
+  color: white;
+  position: absolute;
+  display: none;
+}
+
+div#github-profile-image a,
+div#github-profile-image img,
+div#github-profile-image img a {
+  height: 100%;
+}
+
+div#github-profile-image img {
+  object-fit: contain;
+  width: 100%;
+  opacity: 1;
+  transition: opacity 0.2s;
+}
+
+div#github-profile-image:hover img {
+  opacity: 0.3;
+}
+
+div#github-profile-image::before {
+  content: 'ギット';
+  width: 990%;
+  text-align: center;
+  font-size: .35em;
+}
+
+div#github-profile-image:hover::before {
+  display: block;
+}
+
+dialog#new-grid-dialog {
+  position: relative;
+  border-radius: .5rem;
+}
+
+.close-dialog {
+  display: flex;
+}
+
+.close-dialog span {
+  color: red;
+  font-size: .5em;
+  background: darkred;
+  border-radius: 50%;
+}
+
+.controls-dialog {
+  padding: .5rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #84DCCF;
+}
+
+dialog#new-grid-dialog form {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+dialog#new-grid-dialog form * {
+  font-size: .8em;
+}
+
+div#margin-bottom-after-controls {
+  margin-bottom: 1rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+#new-grid-dialog-main-icon {
+  justify-self: center;
+}
+
+#new-grid-dialog-main-icon span {
+  font-size: 1.5em;
 }
