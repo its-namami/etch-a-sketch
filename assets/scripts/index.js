@@ -6,6 +6,60 @@ const newGridBtn = document.querySelector('button#invoke-choosing-new-grid');
 const newGridDialog = document.querySelector('dialog#new-grid-dialog');
 const closeNewGridDialog = document.querySelector('dialog#new-grid-dialog #close-new-grid-dialog-button');
 const minimizeNewGridDialog = document.querySelector('dialog#new-grid-dialog #minimize-new-grid-dialog-button');
+const toolbar = document.querySelector('#toolbar');
+const toolbarDrag = document.querySelector('#toolbar-drag');
+const drawModeBtn = document.querySelector('#draw-mode');
+const eraseModeBtn = document.querySelector('#erase-mode');
+
+let mouseDown = false;
+let drawMode = false;
+let eraseMode = false;
+let isToolbarDragging = false
+let offsetX;
+
+drawModeBtn.addEventListener('click', () => {
+  drawMode = true;
+  eraseMode = false;
+  drawModeBtn.classList.add('draw-active');
+  eraseModeBtn.classList.remove('erase-active');
+});
+
+eraseModeBtn.addEventListener('click', () => {
+  drawMode = false;
+  eraseMode = true;
+  drawModeBtn.classList.remove('draw-active');
+  eraseModeBtn.classList.toggle('erase-active');
+});
+
+toolbarDrag.addEventListener('mousedown', e => {
+  isToolbarDragging = true;
+});
+
+document.addEventListener('mousedown', e => {
+  if (isToolbarDragging) {
+    offsetX = (e.clientX - toolbar.getBoundingClientRect().left)
+  }
+});
+
+document.addEventListener('mousemove', e => {
+  if (isToolbarDragging) {
+    toolbar.style.left = `${e.screenX - offsetX}px`;
+    toolbar.style.top = `${e.screenY}px`;
+  }
+});
+
+wholeGrid.addEventListener('mousedown', () => {
+  mouseDown = true;
+});
+
+document.addEventListener('mouseup', () => {
+  mouseDown = false;
+  isToolbarDragging = false;
+});
+
+newGridBtn.addEventListener('click', () => {
+  newGridDialog.showModal();
+});
 
 const itemFlexbox = function createAndAppendFlexboxItem(appendToElement) {
   const itemFlexbox = document.createElement('div');
@@ -35,12 +89,14 @@ const createGrid = function createGridOfPredefinedVariables(rows, colons) {
 
   itemFlexboxes.forEach(itemFlexbox => {
     itemFlexbox.addEventListener('mousedown', () => {
-      itemFlexbox.classList.add('background-darkblue');
+      if (drawMode) itemFlexbox.classList.add('background-darkblue');
+      if (eraseMode) itemFlexbox.classList.remove('background-darkblue');
     });
 
     itemFlexbox.addEventListener('mousemove', () => {
       if (mouseDown) {
-	itemFlexbox.classList.add('background-darkblue');
+	if (drawMode) itemFlexbox.classList.add('background-darkblue');
+	if (eraseMode) itemFlexbox.classList.remove('background-darkblue');
       }
     });
   });
@@ -49,22 +105,6 @@ const createGrid = function createGridOfPredefinedVariables(rows, colons) {
 }
 
 let thisGrid = createGrid(16, 16);
-
-
-let mouseDown = false;
-let drawMode = true;
-let eraseMode = false;
-
-document.addEventListener('mousedown', () => {
-  mouseDown = true;
-});
-
-document.addEventListener('mouseup', () => {
-  mouseDown = false;
-});
-newGridBtn.addEventListener('click', () => {
-  newGridDialog.showModal();
-});
 
 closeNewGridDialog.addEventListener('mouseenter', () => {
   closeNewGridDialog.querySelector('span').textContent = '󰅙';
@@ -118,4 +158,3 @@ newGridDialog.addEventListener('submit', event => {
   newGridDialog.querySelector('form').reset();
   newGridDialog.close();
 });
-

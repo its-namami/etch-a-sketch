@@ -21,6 +21,7 @@
 :root::after {
   font-size: 1.5rem;
   box-sizing: border-box;
+  margin: 0;
 }
 
 .icon-font,
@@ -58,6 +59,7 @@ main {
 }
 
 section#sketch-grid {
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   --grid-item-size: 0.9rem;
@@ -230,3 +232,57 @@ div#margin-bottom-after-controls {
 #home-logo a:hover {
   text-decoration: underline;
 }
+
+#toolbar {
+  border: 1px solid black;
+  border-radius: .5rem;
+  width: max-content;
+  padding: .5rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  background: white;
+  height: max-content;
+  top: 50%;
+  transform: translateY(-50%);
+  position: fixed;
+}
+
+#toolbar > * {
+  cursor: pointer;
+  padding: .3rem;
+  border-radius: .5rem;
+  border: 1px solid transparent;
+}
+
+#toolbar > *:hover {
+  filter: brightness(85%);
+}
+
+#toolbar hr {
+  cursor: default;
+  background: black;
+  padding: 0;
+  border-bottom: 1px solid black;
+}
+
+#toolbar #toolbar-drag:active {
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+}
+
+#color-mode.color-active,
+#draw-mode.draw-active,
+#erase-mode.erase-active {
+  border: 1px solid black;
+}
+
+#draw-mode.draw-active {
+  background-color: white;
+}
+
+#erase-mode.erase-active {
+  background-color: pink;
+}
+
