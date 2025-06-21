@@ -163,9 +163,17 @@ div#github-profile-image:hover::before {
   display: block;
 }
 
+dialog#new-grid-dialog::backdrop {
+  background-color: black;
+  opacity: .5;
+}
+
 dialog#new-grid-dialog {
-  position: relative;
+  position: absolute;
+  inset: 0;
   border-radius: .5rem;
+  margin: auto;
+  width: max-content;
 }
 
 .control-button {

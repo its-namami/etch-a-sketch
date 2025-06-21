@@ -10,12 +10,30 @@ const toolbar = document.querySelector('#toolbar');
 const toolbarDrag = document.querySelector('#toolbar-drag');
 const drawModeBtn = document.querySelector('#draw-mode');
 const eraseModeBtn = document.querySelector('#erase-mode');
+const newGridDialogDrag = document.querySelector('dialog#new-grid-dialog .controls-dialog');
 
 let mouseDown = false;
 let drawMode = false;
 let eraseMode = false;
 let isToolbarDragging = false
 let offsetX;
+let newGridDialogMouseDown = false;
+let newGridDialogOffsetX;
+let newGridDialogOffsetY;
+let firstClickedOnControlButton = false;
+
+newGridDialogDrag.addEventListener('mousedown', e => {
+  console.dir(e);
+    console.log(`Screen Y: ${e.screenY}`);
+    console.log(`newGridDialogOffsetY = ${e.clientY} - ${newGridDialog.getBoundingClientRect().top}`);
+    console.log(` offsetX = (${e.offsetY} - ${e.y})`);
+
+  if (e.target !== closeNewGridDialog && e.target !== minimizeNewGridDialog) {
+    newGridDialogMouseDown = true;
+    newGridDialogOffsetX = e.clientX - newGridDialog.getBoundingClientRect().left;
+    newGridDialogOffsetY = e.clientY - newGridDialog.getBoundingClientRect().top;
+  }
+});
 
 drawModeBtn.addEventListener('click', () => {
   drawMode = true;
@@ -37,7 +55,7 @@ toolbarDrag.addEventListener('mousedown', e => {
 
 document.addEventListener('mousedown', e => {
   if (isToolbarDragging) {
-    offsetX = (e.clientX - toolbar.getBoundingClientRect().left)
+    offsetX = (e.clientX - toolbar.getBoundingClientRect().left);
   }
 });
 
@@ -46,6 +64,12 @@ document.addEventListener('mousemove', e => {
     toolbar.style.left = `${e.screenX - offsetX}px`;
     toolbar.style.top = `${e.screenY}px`;
   }
+
+  if (newGridDialogMouseDown && !firstClickedOnControlButton) {
+    newGridDialog.style.left = `${e.x - newGridDialogOffsetX}px`;
+    newGridDialog.style.top = `${e.y - newGridDialogOffsetY}px`;
+    newGridDialog.style.margin = 0;
+  }
 });
 
 wholeGrid.addEventListener('mousedown', () => {
@@ -53,6 +77,8 @@ wholeGrid.addEventListener('mousedown', () => {
 });
 
 document.addEventListener('mouseup', () => {
+  firstClickedOnControlButton = false
+  newGridDialogMouseDown = false;
   mouseDown = false;
   isToolbarDragging = false;
 });
@@ -106,6 +132,14 @@ const createGrid = function createGridOfPredefinedVariables(rows, colons) {
 
 let thisGrid = createGrid(16, 16);
 
+minimizeNewGridDialog.addEventListener('mousedown', () => {
+  firstClickedOnControlButton = true;
+});
+
+closeNewGridDialog.addEventListener('mousedown', () => {
+  firstClickedOnControlButton = true;
+});
+
 closeNewGridDialog.addEventListener('mouseenter', () => {
   closeNewGridDialog.querySelector('span').textContent = '󰅙';
 });
@@ -129,6 +163,10 @@ minimizeNewGridDialog.addEventListener('mouseleave', () => {
 
 minimizeNewGridDialog.addEventListener('click', () => {
   newGridDialog.close();
+});
+
+newGridDialog.addEventListener('keydown', event => {
+  if (event.key === 'Escape') newGridMouseDown = false;
 });
 
 newGridDialog.addEventListener('submit', event => {
