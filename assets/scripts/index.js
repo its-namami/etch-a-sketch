@@ -23,6 +23,10 @@ const colorPickerHex = document.querySelector('#color-picker-hex');
 const previousColorsContainer = colorPickerPopupContainer.querySelector('#previous-colors-flexbox');
 const previousColorsArray = [];
 const gridSizeInput = document.querySelector('#grid-size-input');
+const saveGridBtn = document.querySelector('#save-grid-button');
+const loadGridBtn = document.querySelector('#load-grid-button');
+const successMessage = document.querySelector('#success-message');
+const errorMessage = document.querySelector('#error-message');
 
 let mouseDown = false;
 let drawMode = true;
@@ -316,4 +320,58 @@ colorPickerBtn.addEventListener('click', () => {
 toolbar.addEventListener('mousedown', () => {
   colorPickerPopupContainer.classList.remove('focused');
   toolbar.classList.add('focused');
+});
+
+const saveGrid = () => {
+    const cells = Array.from(document.querySelectorAll(".item-flexbox"));
+    const data = cells.map(cell => cell.style.backgroundColor || null);
+    const rows = thisGrid.length;
+    const cols = thisGrid[0].children.length;
+    localStorage.setItem("gridData", JSON.stringify({ rows, cols, data }));
+};
+
+const loadGrid = () => {
+  const saved = JSON.parse(localStorage.getItem("gridData"));
+
+  if (!saved) return false;
+
+  thisGrid.forEach(row => row.remove());
+  thisGrid = createGrid(saved.rows, saved.cols);
+  const flatCells = document.querySelectorAll(".item-flexbox");
+
+  flatCells.forEach((cell, i) => {
+    const color = saved.data[i];
+    if (color) cell.style.backgroundColor = color;
+  });
+
+  return true;
+};
+
+const showSuccessMessage = function displaySuccessMessageOptionalCustomString(str = successMessage.querySelector('p').textContent) {
+  successMessage.querySelector('p').textContent = str;
+  successMessage.style.display = 'flex';
+  setTimeout(() => {
+    successMessage.style.display = 'none';
+  }, 4000);
+}
+
+const showErrorMessage = function displayErrorMessageOptionalCustomString(str = errorMessage.querySelector('p').textContent) {
+  errorMessage.querySelector('p').textContent = str;
+  errorMessage.style.display = 'flex';
+  setTimeout(() => {
+    errorMessage.style.display = 'none';
+  }, 4000);
+}
+
+saveGridBtn.addEventListener('click', function() {
+  saveGrid('Successfully Saved');
+  showSuccessMessage('Successfully Loaded');
+});
+
+loadGridBtn.addEventListener('click', function() {
+  if (!loadGrid()) {
+    showErrorMessage('Couldn\'t Load');
+  } else {
+    showSuccessMessage('Successfully Loaded');
+  }
 });

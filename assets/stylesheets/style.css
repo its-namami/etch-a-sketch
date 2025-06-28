@@ -39,7 +39,7 @@ header {
 nav {
   position: fixed;
   width: 100%;
-  z-index: 999;
+  z-index: 5;
   background-color: var(--rich-black);
   height: 2.5rem;
   display: flex;
@@ -428,4 +428,69 @@ div#margin-bottom-after-controls {
 
 .focused {
   z-index: 2;
+}
+
+.fade-in-out-top {
+  animation-name: fadeInOutTop;
+  animation-duration: 3s;
+  animation-fill-mode: both;
+}
+
+#success-message {
+  outline: 2px solid #006000;
+  background-color: #20AA20;
+  position: absolute;
+  z-index: 999;
+  top: 0%;
+  left: 50%;
+  transform: translateX(-50%) translateY(50%);
+  padding: .5rem 1rem;
+  border-radius: .5rem;
+  color: white;
+  align-items: center;
+  gap: .5rem;
+  display: none;
+}
+
+#success-message p {
+  font-size: .7em;
+}
+
+#error-message {
+  outline: 2px solid #600000;
+  background-color: #AA2020;
+  position: absolute;
+  z-index: 999;
+  top: 0%;
+  left: 50%;
+  transform: translateX(-50%) translateY(50%);
+  padding: .5rem 1rem;
+  border-radius: .5rem;
+  color: white;
+  align-items: center;
+  gap: .5rem;
+  display: none;
+}
+
+#error-message p {
+  font-size: .7em;
+}
+
+@keyframes fadeInOutTop {
+  0% {
+    opacity: 0;
+      transform: translateX(-50%) translateY(-100%);
+    }
+  20% {
+    opacity: 1;
+      transform: translateX(-50%) translateY(50%);
+    }
+  80% {
+    opacity: 1;
+      transform: translateX(-50%) translateY(50%);
+    }
+  100% {
+    opacity: 0;
+      transform: translateX(-50%) translateY(-100%);
+    }
 }
