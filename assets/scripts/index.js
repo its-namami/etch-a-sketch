@@ -70,7 +70,6 @@ colorPickerPopupContainer.addEventListener('mousedown', () => {
 
 colorPicker.addEventListener('change', e => {
   colorPicked = getHex(colorPicker.value);
-  console.log(colorPicked)
 });
 
 colorPicker.addEventListener('input', e => {
