@@ -13,7 +13,7 @@
             <span>Etch-a-Sketch</span>
           </a>
         </div>
-        <button class='navigation-button' id='invoke-choosing-new-grid'>New</button>
+        <button class='navigation-button icon-font' id='invoke-choosing-new-grid'>New 󰎔</button>
         <div id='github-profile-image'>
           <a href='https://github.com/its-namami' target='_blank' rel='noopener noreferrer'><img src='https://avatars.githubusercontent.com/u/164639260'/></a>
         </div>
@@ -21,6 +21,12 @@
     </header>
     <div class='container'>
       <main>
+        <section id='sketch-tools'>
+          <div id='grid-size'>
+            <label for='grid-size-input'>Scale: </label>
+            <input type='range' id='grid-size-input' name='grid-size-input' min='1' max='50' value='16'>
+          </div>
+        </section>
         <section id='sketch-grid'>
         </section>
       </main>
@@ -30,10 +36,12 @@
         <span>󰇛</span>
       </div>
       <hr>
-      <button id='color-picker'>
-        <span></span>
-      </button>
-      <button id='draw-mode'>
+      <div id='color-picker-div'>
+        <button id='color-picker'>
+          <span></span>
+        </button>
+      </div>
+      <button id='draw-mode' class='draw-active'>
         <span>󰃉</span>
       </button>
       <button id='erase-mode'>
@@ -59,23 +67,38 @@
         <input type='number' placeholder='default: 16' id='rows' name='rows' min='0' max='150'>
         <label for='columns'>Columns: </label>
         <input type='number' placeholder='default: 16' id='columns' name='columns' min='0' max='150'>
-        <div id='form-grid-item-size'>
-          <label for='grid-item-size-value'>Grid Item Size: </label>
-          <input type='number' id='grid-item-size-value' name='grid-item-size-value' placeholder='default: 0.9 rem' min='0' step='0.01'>
-          <select name='grid-item-size-unit' id='grid-item-size-unit'>
-              <option value='px'>px</option>
-              <option value='rem' selected>rem</option>
-              <option value='em'>em</option>
-              <option value='ch'>ch</option>
-              <option value='vh'>vh</option>
-              <option value='vw'>vw</option>
-          </select>
+        <div class='apply-cancel'>
+          <button>Cancel</button>
+          <button type='submit'>
+            Create <span class='icon-font'>󰋁</span>
+          </button>
         </div>
-        <button type='submit'>
-          Create <span class='icon-font'>󰋁</span>
-        </button>
       </form>
     </dialog>
+    <div id='color-picker-picker' class='icon-font invisible'>
+      <div class='controls-dialog'>
+        <div id='close-color-picker-button' class='icon-font control-button'>
+          <span>󰻂</span>
+        </div>
+        <div id='minimize-color-picker-button' class='icon-font control-button'>
+          <span></span>
+        </div>
+      </div>
+      <div id='margin-bottom-after-controls'></div>
+      <p>Choose your color </p>
+      <div id='color-picker-row'>
+        <input type='color'>
+        <div id='color-picker-text-w-hex'>
+          <span>Hex:</span>
+          <span id='color-picker-hex'>#000000</span>
+        </div>
+      </div>
+      <div id='previous-colors-container'>
+        <p>Previous colors 󰮳</p>
+        <div id='previous-colors-flexbox'>
+        </div>
+      </div>
+    </div>
   </body>
   <script src='assets/scripts/index.js'></script>
 </html>

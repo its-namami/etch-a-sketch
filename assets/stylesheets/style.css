@@ -32,11 +32,14 @@
 }
 
 header {
-  margin-bottom: 3rem;
+  height: 3rem;
   color: white;
 }
 
 nav {
+  position: fixed;
+  width: 100%;
+  z-index: 999;
   background-color: var(--rich-black);
   height: 2.5rem;
   display: flex;
@@ -47,26 +50,28 @@ nav {
 
 .container {
   display: block;
-  width: 80%;
   margin: 0 auto;
 }
 
 main {
+  overflow-x: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 section#sketch-grid {
-  margin-top: 2rem;
   display: flex;
   flex-direction: column;
-  --grid-item-size: 0.9rem;
+  --grid-item-size: 16px;
   user-select: none;
   -webkit-user-select: none;
-  --grid-item-border-color: var(--gold);
+  --grid-border-color: var(--gold);
+  --grid-item-cell-color: var(--rich-black);
   border: 1px solid black;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 section#sketch-grid .horizontal-flexbox {
@@ -76,7 +81,7 @@ section#sketch-grid .horizontal-flexbox {
 }
 
 .item-flexbox-border {
-  border: 1px solid var(--grid-item-border-color);
+  border: 1px solid var(--grid-border-color);
 }
 
 section#sketch-grid .horizontal-flexbox .item-flexbox {
@@ -87,8 +92,8 @@ section#sketch-grid .horizontal-flexbox .item-flexbox {
   transition: background-color 0.178s;
 }
 
-section#sketch-grid .horizontal-flexbox .item-flexbox.background-darkblue {
-  background-color: var(--rich-black);
+section#sketch-grid .horizontal-flexbox .item-flexbox.color-picked {
+  background-color: var(--grid-item-cell-color);
 }
 
 button.navigation-button {
@@ -185,14 +190,26 @@ dialog#new-grid-dialog {
   border-radius: 50%;
 }
 
-#close-new-grid-dialog-button span {
+#close-new-grid-dialog-button span,
+#close-color-picker-button span {
   color: red;
-  background: darkred;
+  background: #800000;
 }
 
-#minimize-new-grid-dialog-button span {
+#close-new-grid-dialog-button span:active,
+#close-color-picker-button span:active {
+  filter: brightness(.8);
+}
+
+#minimize-new-grid-dialog-button span,
+#minimize-color-picker-button span {
   color: var(--selective-yellow);
   background: var(--brown);
+}
+
+#minimize-new-grid-dialog-button span:active,
+#minimize-color-picker-button span:active {
+  filter: brightness(.8);
 }
 
 .controls-dialog {
@@ -256,14 +273,15 @@ div#margin-bottom-after-controls {
   position: fixed;
 }
 
-#toolbar > * {
+#toolbar button,
+#toolbar #toolbar-drag {
   cursor: pointer;
   padding: .3rem;
   border-radius: .5rem;
   border: 1px solid transparent;
 }
 
-#toolbar > *:hover {
+#toolbar button:hover {
   filter: brightness(85%);
 }
 
@@ -287,10 +305,127 @@ div#margin-bottom-after-controls {
 }
 
 #draw-mode.draw-active {
-  background-color: white;
+  background-color: #90aaee80;
 }
 
 #erase-mode.erase-active {
   background-color: pink;
 }
 
+#color-picker-div {
+  /* position: relative */
+}
+
+#color-picker-picker {
+  position: fixed;
+  min-width: max-content;
+  padding: .5rem 1rem;
+  background: white;
+  border: 1px solid black;
+  border-radius: .5rem;
+  box-shadow: 0 0 5px 3px #00000060;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  overflow: hidden;
+  bottom: 0;
+  height: max-content;
+  left: 0;
+  margin: 0;
+  width: max-content;
+  padding-bottom: 1rem;
+}
+
+#color-picker-picker p {
+  font-size: .7em;
+}
+
+#color-picker-picker input {
+  width: 3rem;
+  height: 2rem;
+}
+
+.apply-cancel {
+  display: flex;
+  gap: .2rem;
+}
+
+.apply-cancel button {
+  font-size: .6em;
+  border: 1px solid var(--rich-black);
+}
+
+.apply-cancel * {
+  flex: 1;
+}
+
+#color-picker-row {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+}
+
+#color-picker-row span {
+  font-size: .6em;
+}
+
+.apply-cancel button[type='submit'] {
+  background-color: var(--yellow-green);
+}
+
+.apply-cancel button:hover {
+  filter: brightness(.9);
+}
+
+.apply-cancel button:focus {
+  outline: 1px solid black;
+}
+
+#previous-colors-container {
+  gap: .3rem;
+  display: flex;
+  flex-flow: column wrap;
+}
+
+#previous-colors-container p {
+  font-size: .7em;
+}
+
+#previous-colors-flexbox {
+  display: flex;
+  flex: 1 1 21%;
+  max-width: 9rem;
+  gap: .3rem;
+  flex-flow: row wrap;
+}
+
+#previous-colors-flexbox .previous-color {
+  height: 100%;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: inline-block;
+  border: 1px solid black;
+  box-shadow: inset 0 0 0px .1em #00000080;
+  transition: opacity 0.1s;
+  display: block;
+}
+
+#previous-colors-flexbox .previous-color:hover {
+  opacity: .7;
+}
+
+#previous-colors-flexbox .previous-color.previous-color-dark {
+  box-shadow: inset 0 0 0px .1em #FFFFFF80;
+}
+
+#grid-size label {
+  font-size: .7em;
+}
+
+#color-picker-picker.invisible {
+  display: none;
+}
+
+.focused {
+  z-index: 2;
+}
