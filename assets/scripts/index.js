@@ -101,19 +101,15 @@ eraseModeBtn.addEventListener('click', () => {
 
 toolbarDrag.addEventListener('mousedown', e => {
   isToolbarDragging = true;
-  offsetY = e.offsetY;
-});
-
-document.addEventListener('mousedown', e => {
-  if (isToolbarDragging) {
-    offsetX = (e.clientX - toolbar.getBoundingClientRect().left);
-  }
+  offsetX = e.clientX - toolbar.getBoundingClientRect().left;
+  offsetY = e.clientY - toolbar.getBoundingClientRect().top;
+  // offsetY = e.offsetY;
 });
 
 document.addEventListener('mousemove', e => {
   if (isToolbarDragging) {
-    toolbar.style.left = `${e.screenX - offsetX}px`;
-    toolbar.style.top = `${e.y - offsetY - toolbarDrag.offsetTop}px`;
+    toolbar.style.left = `${e.clientX - offsetX}px`;
+    toolbar.style.top = `${e.clientY - offsetY}px`;
     toolbar.style.transform = 'none';
   }
 
